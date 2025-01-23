@@ -69,7 +69,7 @@
             <td><fmt:formatDate value="${stock.currentDate}" pattern="dd-MM-yyyy" /></td>
             <td>${stock.currentPrice}</td>
             <td>${stock.unitGain}</td>
-            <td>${stock.unitPercentage}</td>
+            <td><fmt:formatNumber value="${stock.unitPercentage}" type="number" maxFractionDigits="2" /></td>
             <td>${stock.totalBalance}</td>
             <td>${stock.totalGain}</td>
         </tr>
