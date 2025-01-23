@@ -2,7 +2,7 @@ package model.services;
 
 import model.dao.StockDAO;
 import model.entities.Stock;
-import model.entities.AlphaVantageAPI;
+import model.api.AlphaVantageAPI;
 
 import java.util.Date;
 import java.util.List;
