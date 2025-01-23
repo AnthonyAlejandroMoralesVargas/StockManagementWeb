@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StockManagementDG</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
 </head>
 <body>
 <h1>Stock Management</h1>
@@ -76,5 +76,23 @@
     </c:forEach>
     </tbody>
 </table>
+<!-- Modal -->
+<div id="messageModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-body">${messageControl}</div>
+    </div>
+</div>
+<script>
+    window.onload = function () {
+        const message = '${messageControl}';
+        if (message.trim()) {
+            const modal = document.getElementById('messageModal');
+            modal.style.display = 'flex';
+            setTimeout(function () {
+                modal.style.display = 'none';
+            }, 5000);
+        }
+    };
+</script>
 </body>
 </html>
