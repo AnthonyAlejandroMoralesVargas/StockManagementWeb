@@ -8,12 +8,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StockManagementDG</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles.css"> <!-- Vincula tu archivo CSS si es necesario -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
 </head>
 <body>
 <h1>Stock Management</h1>
 
-<!-- Sección para mostrar mensajes de éxito o error -->
+
 <c:if test="${not empty success}">
     <p style="color: green;">${success}</p>
 </c:if>
@@ -21,31 +21,29 @@
     <p style="color: red;">${error}</p>
 </c:if>
 
-<!-- Formulario para registrar una nueva acción -->
-<h2>Registrar Nueva Acción</h2>
+<h2>Register new stock</h2>
 <form action="${pageContext.request.contextPath}/RegisterStockController?route=add" method="POST">
 
-    <label for="symbol">Nombre de la Acción:</label>
+    <label for="symbol">Symbol:</label>
     <input type="text" id="symbol" name="symbol" required>
     <br><br>
 
-    <label for="purchasePrice">Precio de Compra (USD):</label>
+    <label for="purchasePrice">Purchase price (USD):</label>
     <input type="number" id="purchasePrice" name="purchasePrice" step="0.01" required>
     <br><br>
 
-    <label for="quantity">Cantidad:</label>
+    <label for="quantity">Quantity:</label>
     <input type="number" id="quantity" name="quantity" required>
     <br><br>
 
-    <label for="purchaseDate">Fecha de Compra:</label>
+    <label for="purchaseDate">Purchase Date:</label>
     <input type="date" id="purchaseDate" name="purchaseDate" required>
     <br><br>
 
-    <input type="submit" value="Registrar Compra">
+    <input type="submit" value="Save">
 </form>
 
-<!-- Tabla para mostrar el listado de acciones registradas -->
-<h2>Resumen de Compras de Acciones</h2>
+<h2>My stock</h2>
 <table border="1">
     <thead>
     <tr>
@@ -71,12 +69,30 @@
             <td><fmt:formatDate value="${stock.currentDate}" pattern="dd-MM-yyyy" /></td>
             <td>${stock.currentPrice}</td>
             <td>${stock.unitGain}</td>
-            <td>${stock.unitPercentage}</td>
+            <td><fmt:formatNumber value="${stock.unitPercentage}" type="number" maxFractionDigits="2" /></td>
             <td>${stock.totalBalance}</td>
             <td>${stock.totalGain}</td>
         </tr>
     </c:forEach>
     </tbody>
 </table>
+<!-- Modal -->
+<div id="messageModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-body">${messageControl}</div>
+    </div>
+</div>
+<script>
+    window.onload = function () {
+        const message = '${messageControl}';
+        if (message.trim()) {
+            const modal = document.getElementById('messageModal');
+            modal.style.display = 'flex';
+            setTimeout(function () {
+                modal.style.display = 'none';
+            }, 5000);
+        }
+    };
+</script>
 </body>
 </html>
