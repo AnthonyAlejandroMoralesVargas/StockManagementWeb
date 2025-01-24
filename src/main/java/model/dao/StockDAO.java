@@ -29,26 +29,23 @@ public class StockDAO implements Serializable {
     }
 
     // Guardar o actualizar una acción
-    public void saveOrUpdate(Stock stock) {
-        EntityManager em = getEntityManager();
-        EntityTransaction transaction = em.getTransaction();
-
-        try {
-            transaction.begin();
-            Stock existingStock = em.find(Stock.class, stock.getSymbol());
-            if (existingStock == null) {
-                em.persist(stock); // Crear un nuevo registro
-            } else {
-                em.merge(stock); // Actualizar el registro existente
-            }
-            transaction.commit();
+    public boolean create(Stock stock) {
+        EntityManager em = null;
+        try{
+            em = getEntityManager();
+            em.getTransaction().begin();
+            em.persist(stock);
+            em.getTransaction().commit();
+            return true;
         } catch (Exception e) {
-            if (transaction.isActive()) {
-                transaction.rollback();
+            if (em != null && em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
             }
-            throw new RuntimeException("Error al guardar o actualizar el Stock: " + e.getMessage(), e);
-        } finally {
-            em.close(); // Cerrar el EntityManager
+            return false;
+        }finally {
+            if (em != null) {
+                em.close();
+            }
         }
     }
 
@@ -71,7 +68,6 @@ public class StockDAO implements Serializable {
             em.close();
         }
     }
-
     // Eliminar una acción por su símbolo
     public void deleteBySymbol(String symbol) {
         EntityManager em = getEntityManager();
