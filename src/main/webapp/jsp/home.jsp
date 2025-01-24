@@ -13,14 +13,6 @@
 <body>
 <h1>Stock Management</h1>
 
-
-<c:if test="${not empty success}">
-    <p style="color: green;">${success}</p>
-</c:if>
-<c:if test="${not empty error}">
-    <p style="color: red;">${error}</p>
-</c:if>
-
 <h2>Register new stock</h2>
 <form action="${pageContext.request.contextPath}/RegisterStockController?route=add" method="POST">
 
@@ -44,6 +36,14 @@
 </form>
 
 <h2>My stock</h2>
+<form id="sortForm" action="${pageContext.request.contextPath}/RegisterStockController?route=list" method="GET">
+    <label for="sortOrder">Sort by:</label>
+    <select id="sortOrder" name="sort" onchange="document.getElementById('sortForm').submit()">
+        <option value="default" <c:if test="${param.sort == null || param.sort == 'default'}">selected</c:if>>Default Order</option>
+        <option value="name" <c:if test="${param.sort == 'name'}">selected</c:if>>Order by Name</option>
+    </select>
+</form>
+
 <table border="1">
     <thead>
     <tr>
