@@ -42,7 +42,6 @@ public class RegisterStockController extends HttpServlet {
             case "add":
                 this.addStock(req, resp);
                 break;
-
         }
     }
 
@@ -56,18 +55,23 @@ public class RegisterStockController extends HttpServlet {
 
     private void addStock(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         StockService stockService = new StockService();
-        try {
-            String symbol = req.getParameter("symbol");
-            int quantity = Integer.parseInt(req.getParameter("quantity"));
-            double purchasePrice = Double.parseDouble(req.getParameter("purchasePrice"));
-            Date purchaseDate = new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("purchaseDate"));
+            try{
+                String symbol = req.getParameter("symbol");
+                int quantity = Integer.parseInt(req.getParameter("quantity"));
+                double purchasePrice = Double.parseDouble(req.getParameter("purchasePrice"));
+                Date purchaseDate = new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("purchaseDate"));
 
-            stockService.registerOrUpdateStock(symbol, quantity, purchaseDate, purchasePrice);
+                boolean stockSaved = stockService.save(symbol, quantity, purchaseDate, purchasePrice);
 
-            req.setAttribute("success", "La acción se registró correctamente.");
-        } catch (Exception e) {
-            req.setAttribute("error", "Error al registrar la acción: " + e.getMessage());
-        }
-        req.getRequestDispatcher("/RegisterStockController?route=list").forward(req, resp);
+                if (stockSaved) {
+                    req.setAttribute("messageControl", "La acción se registró correctamente.");
+                } else {
+                    req.setAttribute("messageControl", "Error al registrar la acción.");
+                }
+                req.getRequestDispatcher("/RegisterStockController?route=list").forward(req, resp);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
     }
 }
