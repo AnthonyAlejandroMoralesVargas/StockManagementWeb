@@ -2,8 +2,9 @@ package model.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Column;
-import jakarta.persistence.Transient;
 
 import java.util.Date;
 
@@ -11,31 +12,35 @@ import java.util.Date;
 public class Stock {
 
     @Id
-    private String symbol;  // Símbolo de la acción (e.g., AAPL)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "symbol", nullable = false)
+    private String symbol;
 
     @Column(name = "current_price")
-    private double currentPrice;  // Precio actual de la acción
+    private double currentPrice;
 
     @Column(name = "quantity")
-    private int quantity;  // Cantidad de acciones compradas
+    private int quantity;
 
     @Column(name = "purchase_date")
-    private Date purchaseDate;  // Fecha de compra
+    private Date purchaseDate;
 
     @Column(name = "purchase_price")
-    private double purchasePrice;  // Precio de compra de la acción
+    private double purchasePrice;
 
     @Column(name = "unit_gain")
-    private double unitGain;  // Ganancia por acción (USD)
+    private double unitGain;
 
     @Column(name = "unit_percentage")
-    private double unitPercentage;  // Porcentaje de ganancia/pérdida
+    private double unitPercentage;
 
     @Column(name = "total_balance")
-    private double totalBalance;  // Balance total (USD)
+    private double totalBalance;
 
     @Column(name = "total_gain")
-    private double totalGain;  // Ganancia total (USD)
+    private double totalGain;
 
     @Column(name = "current_date_stock")
     private Date currentDate;
@@ -58,6 +63,14 @@ public class Stock {
     }
 
     // Getters y Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getSymbol() {
         return symbol;
     }
