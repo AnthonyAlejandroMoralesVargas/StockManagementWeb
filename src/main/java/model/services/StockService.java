@@ -61,6 +61,15 @@ public class StockService {
         return stockDAO.getStocksOrderedByName();
     }
 
+    public List<Stock> getOrderedStocksByUnitGainAsc() {
+        return stockDAO.getStocksOrderedByUnitGainAsc();
+    }
+
+    public List<Stock> getOrderedStocksByUnitGainDesc() {
+        return stockDAO.getStocksOrderedByUnitGainDesc();
+    }
+
+
     public void deleteStock(String symbol) {
         stockDAO.deleteBySymbol(symbol);
     }
