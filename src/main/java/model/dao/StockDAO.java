@@ -68,6 +68,38 @@ public class StockDAO implements Serializable {
             em.close();
         }
     }
+
+    public List<Stock> getStocksOrderedByName() {
+        EntityManager em = getEntityManager();
+        try {
+            return em.createQuery("SELECT s FROM Stock s ORDER BY s.symbol ASC", Stock.class)
+                    .getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public List<Stock> getStocksOrderedByUnitGainAsc() {
+        EntityManager em = getEntityManager();
+        try {
+            return em.createQuery("SELECT s FROM Stock s ORDER BY s.unitGain ASC", Stock.class)
+                    .getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public List<Stock> getStocksOrderedByUnitGainDesc() {
+        EntityManager em = getEntityManager();
+        try {
+            return em.createQuery("SELECT s FROM Stock s ORDER BY s.unitGain DESC", Stock.class)
+                    .getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+
     // Eliminar una acción por su símbolo
     public void deleteBySymbol(String symbol) {
         EntityManager em = getEntityManager();

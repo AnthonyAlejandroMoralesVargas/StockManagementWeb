@@ -13,14 +13,6 @@
 <body>
 <h1>Stock Management</h1>
 
-
-<c:if test="${not empty success}">
-    <p style="color: green;">${success}</p>
-</c:if>
-<c:if test="${not empty error}">
-    <p style="color: red;">${error}</p>
-</c:if>
-
 <h2>Register new stock</h2>
 <form action="${pageContext.request.contextPath}/RegisterStockController?route=add" method="POST">
 
@@ -44,6 +36,14 @@
 </form>
 
 <h2>My stock</h2>
+<form id="sortForm" action="${pageContext.request.contextPath}/RegisterStockController?route=list" method="GET">
+    <label for="sortOrder">Sort by:</label>
+    <select id="sortOrder" name="sort" onchange="document.getElementById('sortForm').submit()">
+        <option value="default" <c:if test="${param.sort == null || param.sort == 'default'}">selected</c:if>>Default Order</option>
+        <option value="name" <c:if test="${param.sort == 'name'}">selected</c:if>>Order by Name</option>
+    </select>
+</form>
+
 <table border="1">
     <thead>
     <tr>
@@ -68,10 +68,14 @@
             <td>${stock.purchasePrice}</td>
             <td><fmt:formatDate value="${stock.currentDate}" pattern="dd-MM-yyyy" /></td>
             <td>${stock.currentPrice}</td>
-            <td>${stock.unitGain}</td>
-            <td><fmt:formatNumber value="${stock.unitPercentage}" type="number" maxFractionDigits="2" /></td>
+            <td class="<c:if test='${stock.unitGain >= 0}'>green</c:if><c:if test='${stock.unitGain < 0}'>red</c:if>">${stock.unitGain} </td>
+            <td class="<c:if test='${stock.unitPercentage >= 0}'>green</c:if><c:if test='${stock.unitPercentage < 0}'>red</c:if>">
+                <fmt:formatNumber value="${stock.unitPercentage}" type="number" maxFractionDigits="2" />
+            </td>
             <td>${stock.totalBalance}</td>
-            <td>${stock.totalGain}</td>
+            <td class="<c:if test='${stock.totalGain >= 0}'>green</c:if><c:if test='${stock.totalGain < 0}'>red</c:if>">
+                    ${stock.totalGain}
+            </td>
         </tr>
     </c:forEach>
     </tbody>

@@ -107,3 +107,29 @@ table tr:hover {
     font-size: 1em;
     color: #333;
 }
+/* Enlace para ordenar acciones */
+.sort-link {
+    display: inline-block;
+    margin: 20px 0;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 16px;
+    text-align: center;
+}
+
+.sort-link:hover {
+    background-color: #0056b3;
+    color: #fff;
+    text-decoration: none;
+}
+.green {
+    color: green;
+}
+
+.red {
+    color: red;
+    font-weight: bold;
+}

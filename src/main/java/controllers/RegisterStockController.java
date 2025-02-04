@@ -48,10 +48,25 @@ public class RegisterStockController extends HttpServlet {
     private void list(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         StockService stockService = new StockService();
 
-        List<Stock> stocks = stockService.listAllStocks();
+        String sort = req.getParameter("sort");
+
+        List<Stock> stocks;
+        if ("name".equals(sort)) {
+            stocks = stockService.getOrderedStocksByName(); // Ordenar por nombre
+        } else if("unitGainAsc".equals(sort)){
+            stocks = stockService.getOrderedStocksByUnitGainAsc();
+            // Ordenar por ganancia unitaria ascendente
+        } else if("unitGainDesc".equals(sort)){
+            stocks = stockService.getOrderedStocksByUnitGainDesc(); // Ordenar por ganancia unitaria descendente
+        } else {
+            stocks = stockService.listAllStocks(); // Ordenar por defecto
+        }
+
         req.setAttribute("stocks", stocks);
+        req.setAttribute("sort", sort); // Pasar el valor seleccionado al JSP
         req.getRequestDispatcher("jsp/home.jsp").forward(req, resp);
     }
+
 
     private void addStock(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         StockService stockService = new StockService();

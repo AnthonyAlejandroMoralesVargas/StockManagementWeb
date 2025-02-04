@@ -45,7 +45,7 @@ public class StockService {
             }
 
         } else {
-           return false;
+            return false;
         }
     }
 
@@ -56,7 +56,20 @@ public class StockService {
     public List<Stock> listAllStocks() {
         return stockDAO.findAll();
     }
-    
+
+    public List<Stock> getOrderedStocksByName() {
+        return stockDAO.getStocksOrderedByName();
+    }
+
+    public List<Stock> getOrderedStocksByUnitGainAsc() {
+        return stockDAO.getStocksOrderedByUnitGainAsc();
+    }
+
+    public List<Stock> getOrderedStocksByUnitGainDesc() {
+        return stockDAO.getStocksOrderedByUnitGainDesc();
+    }
+
+
     public void deleteStock(String symbol) {
         stockDAO.deleteBySymbol(symbol);
     }
