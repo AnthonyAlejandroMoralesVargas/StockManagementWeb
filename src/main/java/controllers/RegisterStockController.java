@@ -53,6 +53,11 @@ public class RegisterStockController extends HttpServlet {
         List<Stock> stocks;
         if ("name".equals(sort)) {
             stocks = stockService.getOrderedStocksByName(); // Ordenar por nombre
+        } else if("unitGainAsc".equals(sort)){
+            stocks = stockService.getOrderedStocksByUnitGainAsc();
+            // Ordenar por ganancia unitaria ascendente
+        } else if("unitGainDesc".equals(sort)){
+            stocks = stockService.getOrderedStocksByUnitGainDesc(); // Ordenar por ganancia unitaria descendente
         } else {
             stocks = stockService.listAllStocks(); // Ordenar por defecto
         }
