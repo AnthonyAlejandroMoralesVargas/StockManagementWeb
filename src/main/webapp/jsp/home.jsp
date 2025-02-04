@@ -41,6 +41,8 @@
     <select id="sortOrder" name="sort" onchange="document.getElementById('sortForm').submit()">
         <option value="default" <c:if test="${param.sort == null || param.sort == 'default'}">selected</c:if>>Default Order</option>
         <option value="name" <c:if test="${param.sort == 'name'}">selected</c:if>>Order by Name</option>
+        <option value="unitGainAsc" <c:if test="${param.sort == 'unitGainAsc'}">selected</c:if>>Unit Gain Ascending</option>
+        <option value="unitGainDesc" <c:if test="${param.sort == 'unitGainDesc'}">selected</c:if>>Unit Gain Descending</option>
     </select>
 </form>
 
