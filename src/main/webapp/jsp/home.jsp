@@ -68,10 +68,14 @@
             <td>${stock.purchasePrice}</td>
             <td><fmt:formatDate value="${stock.currentDate}" pattern="dd-MM-yyyy" /></td>
             <td>${stock.currentPrice}</td>
-            <td>${stock.unitGain}</td>
-            <td><fmt:formatNumber value="${stock.unitPercentage}" type="number" maxFractionDigits="2" /></td>
+            <td class="<c:if test='${stock.unitGain >= 0}'>green</c:if><c:if test='${stock.unitGain < 0}'>red</c:if>">${stock.unitGain} </td>
+            <td class="<c:if test='${stock.unitPercentage >= 0}'>green</c:if><c:if test='${stock.unitPercentage < 0}'>red</c:if>">
+                <fmt:formatNumber value="${stock.unitPercentage}" type="number" maxFractionDigits="2" />
+            </td>
             <td>${stock.totalBalance}</td>
-            <td>${stock.totalGain}</td>
+            <td class="<c:if test='${stock.totalGain >= 0}'>green</c:if><c:if test='${stock.totalGain < 0}'>red</c:if>">
+                    ${stock.totalGain}
+            </td>
         </tr>
     </c:forEach>
     </tbody>

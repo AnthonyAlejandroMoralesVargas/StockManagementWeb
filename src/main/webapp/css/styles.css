@@ -125,3 +125,11 @@ table tr:hover {
     color: #fff;
     text-decoration: none;
 }
+.green {
+    color: green;
+}
+
+.red {
+    color: red;
+    font-weight: bold;
+}
