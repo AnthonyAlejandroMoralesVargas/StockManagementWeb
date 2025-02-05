@@ -11,6 +11,12 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
 </head>
 <body>
+<header>
+    <div class="header-buttons">
+        <button onclick="window.location.href='${pageContext.request.contextPath}/RegisterStockController?route=list'">Home</button>
+        <button onclick="window.location.href='${pageContext.request.contextPath}/StockConsolidationController?route=enter'">Stock Consolidation</button>
+    </div>
+</header>
 <h1>Stock Management</h1>
 
 <h2>Register new stock</h2>
@@ -36,7 +42,7 @@
 </form>
 
 <h2>My stock</h2>
-<form id="sortForm" action="${pageContext.request.contextPath}/RegisterStockController?route=list" method="GET">
+<form id="sortForm" action="${pageContext.request.contextPath}/RegisterStockController" method="GET">
     <label for="sortOrder">Sort by:</label>
     <select id="sortOrder" name="sort" onchange="document.getElementById('sortForm').submit()">
         <option value="default" <c:if test="${param.sort == null || param.sort == 'default'}">selected</c:if>>Default Order</option>
@@ -44,6 +50,7 @@
         <option value="unitGainAsc" <c:if test="${param.sort == 'unitGainAsc'}">selected</c:if>>Unit Gain Ascending</option>
         <option value="unitGainDesc" <c:if test="${param.sort == 'unitGainDesc'}">selected</c:if>>Unit Gain Descending</option>
     </select>
+    <input type="hidden" name="route" value="list" />
 </form>
 
 <table border="1">
