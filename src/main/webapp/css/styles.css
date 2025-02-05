@@ -133,3 +133,35 @@ table tr:hover {
     color: red;
     font-weight: bold;
 }
+
+header {
+    background-color: #f4f4f4;
+    padding: 15px 0;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.header-buttons {
+    display: inline-block;
+    margin: 0 10px;
+}
+
+button {
+    background-color: #4CAF50; /* El mismo verde usado en el formulario */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin: 5px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+button:focus {
+    outline: none;
+}

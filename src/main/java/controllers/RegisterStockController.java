@@ -76,6 +76,18 @@ public class RegisterStockController extends HttpServlet {
                 double purchasePrice = Double.parseDouble(req.getParameter("purchasePrice"));
                 Date purchaseDate = new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("purchaseDate"));
 
+                if (quantity <= 0 || purchasePrice <= 0) {
+                    if (quantity <= 0 && purchasePrice <= 0) {
+                        req.setAttribute("messageControl", "Quantity and Purchase price must be positive.");
+                    } else if (quantity <= 0) {
+                        req.setAttribute("messageControl", "Quantity must be positive.");
+                    } else {
+                        req.setAttribute("messageControl", "Purchase price must be positive.");
+                    }
+                    req.getRequestDispatcher("/RegisterStockController?route=list").forward(req, resp);
+                    return;
+                }
+
                 boolean stockSaved = stockService.save(symbol, quantity, purchaseDate, purchasePrice);
 
                 if (stockSaved) {

@@ -49,10 +49,6 @@ public class StockService {
         }
     }
 
-    public Stock findStock(String symbol) {
-        return stockDAO.findBySymbol(symbol);
-    }
-
     public List<Stock> listAllStocks() {
         return stockDAO.findAll();
     }
@@ -67,6 +63,13 @@ public class StockService {
 
     public List<Stock> getOrderedStocksByUnitGainDesc() {
         return stockDAO.getStocksOrderedByUnitGainDesc();
+    }
+
+    public List<String> getAllUniqueSymbols() {
+        return stockDAO.findAllUniqueSymbols();
+    }
+    public List<Stock> findStocksBySymbol(String symbol) {
+        return stockDAO.findBySymbol(symbol);
     }
 
 
