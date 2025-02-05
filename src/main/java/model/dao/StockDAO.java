@@ -49,16 +49,6 @@ public class StockDAO implements Serializable {
         }
     }
 
-    // Buscar una acción por su símbolo
-    public Stock findBySymbol(String symbol) {
-        EntityManager em = getEntityManager();
-        try {
-            return em.find(Stock.class, symbol);
-        } finally {
-            em.close();
-        }
-    }
-
     // Listar todas las acciones
     public List<Stock> findAll() {
         EntityManager em = getEntityManager();
@@ -98,6 +88,31 @@ public class StockDAO implements Serializable {
             em.close();
         }
     }
+
+    public List<String> findAllUniqueSymbols() {
+        EntityManager em = getEntityManager();
+        try {
+            // Usamos DISTINCT para obtener solo los símbolos únicos
+            return em.createQuery("SELECT DISTINCT s.symbol FROM Stock s", String.class)
+                    .getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+
+    public List<Stock> findBySymbol(String symbol) {
+        EntityManager em = getEntityManager();
+        try {
+            // Aquí hacemos la búsqueda de todas las acciones por su símbolo
+            return em.createQuery("SELECT s FROM Stock s WHERE s.symbol = :symbol", Stock.class)
+                    .setParameter("symbol", symbol)
+                    .getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
 
 
     // Eliminar una acción por su símbolo
