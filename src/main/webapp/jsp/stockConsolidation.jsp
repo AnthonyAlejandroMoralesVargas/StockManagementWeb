@@ -35,6 +35,17 @@
     <input type="hidden" name="route" value="view" />
 </form>
 
+<h2>Download Stock Consolidation Report</h2>
+<form action="${pageContext.request.contextPath}/StockConsolidationController" method="GET">
+    <!-- Parámetro para indicar la ruta 'pdf' -->
+    <input type="hidden" name="route" value="pdf">
+    <!-- Parámetro para enviar el símbolo seleccionado -->
+    <input type="hidden" name="symbol" value="${symbol}">
+    <button type="submit">Download PDF</button>
+</form>
+
+
+
 <h1>Stock Consolidation for: ${symbol}</h1>
 
 <table border="1">

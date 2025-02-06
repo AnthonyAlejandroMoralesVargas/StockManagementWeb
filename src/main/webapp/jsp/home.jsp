@@ -89,6 +89,10 @@
     </c:forEach>
     </tbody>
 </table>
+
+<h2>View Stock Performance Chart</h2>
+<img src="${pageContext.request.contextPath}/RegisterStockController?route=chart" alt="Stock Chart">
+
 <!-- Modal -->
 <div id="messageModal" class="modal">
     <div class="modal-content">
