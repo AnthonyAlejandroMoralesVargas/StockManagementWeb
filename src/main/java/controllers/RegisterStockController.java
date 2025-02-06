@@ -7,6 +7,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.entities.Stock;
 import model.services.StockService;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartUtils;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 
 import java.io.IOException;
@@ -41,6 +46,9 @@ public class RegisterStockController extends HttpServlet {
                 break;
             case "add":
                 this.addStock(req, resp);
+                break;
+            case "chart":
+                this.generateChart(req, resp);
                 break;
         }
     }
@@ -100,5 +108,29 @@ public class RegisterStockController extends HttpServlet {
                 throw new RuntimeException(e);
             }
 
+    }
+
+    private void generateChart(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        StockService stockService = new StockService();
+        List<Stock> stocks = stockService.listAllStocks();
+
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        for (Stock stock : stocks) {
+            dataset.addValue(stock.getTotalGain(), "Total Gain (USD)", stock.getSymbol());
+        }
+
+        JFreeChart chart = ChartFactory.createBarChart(
+                "Stock Total Gain",
+                "Stock Name",
+                "Total Gain (USD)",
+                dataset,
+                PlotOrientation.VERTICAL,
+                true,
+                true,
+                false
+        );
+
+        resp.setContentType("image/png");
+        ChartUtils.writeChartAsPNG(resp.getOutputStream(), chart, 800, 600);
     }
 }
