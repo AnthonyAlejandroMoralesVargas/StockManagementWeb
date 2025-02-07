@@ -1,16 +1,25 @@
 package controllers;
 
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponseWrapper;
 import model.entities.Stock;
 import model.services.StockService;
+import model.utils.StockPDFGenerator;
 
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.Serial;
+import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -41,6 +50,9 @@ public class StockConsolidationController extends HttpServlet {
                 break;
             case "view":
                 this.viewConsolidation(req, resp);
+                break;
+            case "pdf":
+                this.generatePDF(req, resp);
                 break;
         }
     }
@@ -84,4 +96,21 @@ public class StockConsolidationController extends HttpServlet {
         req.setAttribute("totalGain", totalGain);
         req.getRequestDispatcher("StockConsolidationController?route=enter").forward(req, resp);
     }
+
+    private void generatePDF(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String symbol = req.getParameter("symbol");
+        if (symbol == null || symbol.isEmpty()) {
+            resp.sendRedirect("StockConsolidationController?route=enter");
+            return;
+        }
+
+        StockService stockService = new StockService();
+        List<Stock> stocks = stockService.findStocksBySymbol(symbol);
+
+        resp.setContentType("application/pdf");
+        resp.setHeader("Content-Disposition", "attachment; filename=Stock_Consolidation_" + symbol + ".pdf");
+
+        StockPDFGenerator.generatePDF(resp.getOutputStream(), symbol, stocks);
+    }
+
 }

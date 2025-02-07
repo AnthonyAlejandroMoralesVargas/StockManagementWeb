@@ -1,167 +1,261 @@
-/* Estilo general */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
+    color: #016171;
 }
 
-h1 {
+h1, h2 {
     text-align: center;
-    color: #333;
+    color: #016171;
 }
 
-h2 {
-    color: #333;
-    margin-top: 20px;
+/* Contenedor Principal */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #016171;
+    display: flex;
+    align-items: center;
+    padding: 15px 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.nav-logo {
+    font-size: 22px;
+    font-weight: bold;
+    color: white;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    margin-left: 20px;
+}
+
+.nav-links li {
+    margin-right: 15px;
+}
+
+.nav-links li a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    transition: background 0.3s ease;
+    border-radius: 4px;
+}
+
+.nav-links li a:hover {
+    background-color: #009494;
 }
 
 /* Formulario */
-form {
-    background-color: #fff;
+form, .modal-content form {
+    background-color: white;
     padding: 20px;
-    margin: 20px auto;
-    max-width: 600px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
 }
 
-form label {
-    font-size: 16px;
-    color: #333;
-}
-
-form input[type="text"],
-form input[type="number"],
-form input[type="date"] {
+form input, form select, .modal-content form input {
     width: 100%;
-    padding: 8px;
-    margin: 8px 0;
+    padding: 10px;
+    margin: 8px 0 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    font-size: 14px;
 }
 
-form input[type="submit"] {
-    background-color: #4CAF50;
+.modal-content form input[type="submit"] {
+    background-color: #009494;
     color: white;
-    border: none;
-    padding: 10px 20px;
     font-size: 16px;
+    border: none;
     cursor: pointer;
-    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
 }
 
-form input[type="submit"]:hover {
-    background-color: #45a049;
+.modal-content form input[type="submit"]:hover {
+    background-color: #00e0c6;
 }
 
-/* Tabla resumen */
+/* Tab Styling */
+.tabs {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+}
+
+.tab.active {
+    background-color: #ddd;
+    border-bottom: 2px solid #007bff;
+}
+
+.tab-content {
+    display: none;
+    margin-top: 20px;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Tabla */
+.table-container {
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-table th, table td {
+th, td {
     padding: 12px;
     text-align: left;
     border-bottom: 1px solid #ddd;
 }
 
-table th {
-    background-color: #4CAF50;
+th {
+    background-color: #009494;
     color: white;
 }
 
-table tr:nth-child(even) {
+td {
     background-color: #f9f9f9;
 }
 
-table tr:hover {
-    background-color: #f1f1f1;
-}
-/* Estilos del modal */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 10px;
-    width: 100%;
-    justify-content: center;
-    align-items: flex-start;
-}
-
-.modal-content {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    width: 90%;
-    max-width: 400px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-.modal-body {
-    font-size: 1em;
-    color: #333;
-}
-/* Enlace para ordenar acciones */
-.sort-link {
-    display: inline-block;
-    margin: 20px 0;
-    padding: 10px 20px;
-    background-color: #007BFF;
-    color: white;
-    text-decoration: none;
-    border-radius: 4px;
-    font-size: 16px;
-    text-align: center;
-}
-
-.sort-link:hover {
-    background-color: #0056b3;
-    color: #fff;
-    text-decoration: none;
-}
-.green {
+td.green {
     color: green;
 }
 
-.red {
+td.red {
     color: red;
-    font-weight: bold;
 }
 
-header {
-    background-color: #f4f4f4;
-    padding: 15px 0;
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    width: 90%;
+    max-width: 400px;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.close-modal {
+    float: right;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.no-data {
     text-align: center;
+    font-size: 18px;
+    color: #666;
+    padding: 20px;
+}
+
+.open-modal-btn {
+    background-color: #009494;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: background 0.3s ease;
+    width: auto;
+    display: inline-block;
+    text-align: center;
+}
+
+.open-modal-btn:hover {
+    background-color: #00e0c6;
+}
+
+.open-modal-btn {
     margin-bottom: 20px;
 }
 
-.header-buttons {
-    display: inline-block;
-    margin: 0 10px;
+/* Tab Styling */
+.tabs {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
 }
 
-button {
-    background-color: #4CAF50; /* El mismo verde usado en el formulario */
-    color: white;
-    border: none;
+.tab {
     padding: 10px 20px;
-    font-size: 16px;
     cursor: pointer;
-    border-radius: 4px;
-    margin: 5px;
-    transition: background-color 0.3s ease;
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
 }
 
-button:hover {
-    background-color: #45a049;
+.tab.active {
+    background-color: #ddd;
+    border-bottom: 2px solid #007bff;
 }
 
-button:focus {
-    outline: none;
+.tab-content {
+    display: none;
+    margin-top: 20px;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.tab:hover {
+    background-color: #e0e0e0;
+    border-color: #bbb;
+}
+
+.message-modal {
+    display: none;
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ededd5;
+    color: black;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
 }
