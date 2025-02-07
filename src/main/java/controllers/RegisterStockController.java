@@ -99,9 +99,11 @@ public class RegisterStockController extends HttpServlet {
                 boolean stockSaved = stockService.save(symbol, quantity, purchaseDate, purchasePrice);
 
                 if (stockSaved) {
-                    req.setAttribute("messageControl", "La acción se registró correctamente.");
+                    req.setAttribute("messageControl", "An error occurred while registering the stock.");
+                    req.setAttribute("messageType", "error"); // Se establece el tipo de mensaje como "error"
                 } else {
-                    req.setAttribute("messageControl", "Error al registrar la acción.");
+                    req.setAttribute("messageControl", "Stock added successfully!");
+                    req.setAttribute("messageType", "success"); // Se establece el tipo de mensaje como "success"
                 }
                 req.getRequestDispatcher("/RegisterStockController?route=list").forward(req, resp);
             } catch (Exception e) {
