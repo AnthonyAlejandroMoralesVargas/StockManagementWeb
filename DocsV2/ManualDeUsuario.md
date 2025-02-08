@@ -1,3 +1,5 @@
+# Manual de Usuario: Stock Management
+----------------------------------------------------------------------------------------------------------------------------
 # 1. Introducción
 
 El sistema de gestión de acciones Stock Management System permite registrar, visualizar y consolidar acciones adquiridas, aporta con información sobre las ganancias y pérdidas. Además, permite la generación de reportes en formato PDF y la representación gráfica del rendimiento de las acciones.
