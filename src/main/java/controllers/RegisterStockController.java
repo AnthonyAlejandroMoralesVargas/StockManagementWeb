@@ -84,14 +84,20 @@ public class RegisterStockController extends HttpServlet {
                 double purchasePrice = Double.parseDouble(req.getParameter("purchasePrice"));
                 Date purchaseDate = new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("purchaseDate"));
 
-                if (quantity <= 0 || purchasePrice <= 0) {
-                    if (quantity <= 0 && purchasePrice <= 0) {
-                        req.setAttribute("messageControl", "Quantity and Purchase price must be positive.");
-                    } else if (quantity <= 0) {
-                        req.setAttribute("messageControl", "Quantity must be positive.");
-                    } else {
-                        req.setAttribute("messageControl", "Purchase price must be positive.");
-                    }
+                StringBuilder errorMessage = new StringBuilder();
+
+                if (quantity <= 0) {
+                    errorMessage.append("ℹ️ Quantity must be positive. <br>");
+                }
+                if (purchasePrice <= 0) {
+                    errorMessage.append("ℹ️ Purchase price must be positive. <br>");
+                }
+                if (purchaseDate.after(new Date())) {
+                    errorMessage.append("ℹ️ The purchase date must not exceed the current date. <br>");
+                }
+
+                if (errorMessage.length() > 0) { // Si hay algún error acumulado, se envía al usuario
+                    req.setAttribute("messageControl", errorMessage.toString().trim());
                     req.getRequestDispatcher("/RegisterStockController?route=list").forward(req, resp);
                     return;
                 }
@@ -99,10 +105,10 @@ public class RegisterStockController extends HttpServlet {
                 boolean stockSaved = stockService.save(symbol, quantity, purchaseDate, purchasePrice);
 
                 if (stockSaved) {
-                    req.setAttribute("messageControl", "Stock added successfully!");
+                    req.setAttribute("messageControl", "✅ Stock added successfully!");
                     req.setAttribute("messageType", "success"); // Se establece el tipo de mensaje como "success"
                 } else {
-                    req.setAttribute("messageControl", "An error occurred while registering the stock.");
+                    req.setAttribute("messageControl", "❌ An error occurred while registering the stock.");
                     req.setAttribute("messageType", "error"); // Se establece el tipo de mensaje como "error"
                 }
                 req.getRequestDispatcher("/RegisterStockController?route=list").forward(req, resp);
