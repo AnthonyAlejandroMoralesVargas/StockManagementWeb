@@ -49,34 +49,35 @@ Estas ramas se crean a partir de la rama main en situaciones de emergencia para 
 
 ---
 
-## **2. Roles en el Equipo**
+## 2. Roles en el Equipo
 
-### **2.1 Desarrolladores de Interfaces Gráficas**
+### 2.1 Desarrolladores Full Stack
 
-**Responsabilidades:**
+#### Responsabilidades:
 
-- Desarrollar las interfaces de usuario utilizando JavaFX en el entorno de NetBeans.
-- Trabajar en ramas de funcionalidades que estén relacionadas con la interfaz gráfica.
+##### Capa de Presentación (Vista):
+- Implementar las interfaces de usuario utilizando **JSP y CSS**.
+- Usar **JSTL y Expression Language (EL)** en JSP para evitar scriptlets y mejorar la mantenibilidad.
+- Integrar **Chart.js** para la visualización gráfica de datos financieros.
+- Garantizar la correcta recepción y envío de datos entre la vista y los controladores.
 
-**Flujo de trabajo:**
+##### Capa de Controladores (Controller):
+- Implementar la lógica de control utilizando **servlets** para gestionar las solicitudes HTTP.
+- Manejar la comunicación entre la vista y el servicio, asegurando la correcta redirección de datos.
+- Gestionar errores y excepciones para mejorar la experiencia del usuario.
 
-- Los desarrolladores de interfaces gráficas crearán sus ramas de funcionalidad a partir de dev.
-- Realizarán commits siguiendo las convenciones especificadas en la documentación del proyecto.
-- Una vez completada una funcionalidad, deberán crear un Pull Request (PR) hacia la rama dev para su revisión y aprobación por un miembro del equipo.
+##### Capa de Modelo (Model):
+- Diseñar y gestionar la persistencia de datos utilizando **JPA/Hibernate con DAO**.
+- Implementar las operaciones de negocio en **StockService** y otros servicios relacionados.
+- Integrar la API de **Alpha Vantage** para obtener precios actualizados de acciones.
+- Optimizar el acceso a la base de datos **Derby**, asegurando un rendimiento eficiente.
 
-### **2.2 Desarrolladores de Lógica de Negocio**
-
-**Responsabilidades:**
-
-- Desarrollar la lógica de negocio que interactúa con la API de Alpha Vantage.
-- Trabajar en ramas de funcionalidades relacionadas con la lógica de negocio.
-
-**Flujo de trabajo:**
-
-- Los desarrolladores de la lógica de negocio trabajarán en ramas de características creadas a partir de dev.
-- Realizarán commits siguiendo las convenciones especificadas en la documentación del proyecto.
-- Cuando terminen una funcionalidad, crearán un Pull Request (PR) hacia la rama dev para su revisión y posterior fusión.
-- Se coordinarán con los desarrolladores de la interfaz gráfica para garantizar que las funcionalidades del backend se integren correctamente con el frontend.
+#### Flujo de trabajo:
+1. Crear ramas de funcionalidad (`feature/nombre-de-la-funcionalidad`) basadas en `dev`.
+2. Implementar la funcionalidad completa, incluyendo **vista, controlador y modelo**.
+3. Probar la funcionalidad en local antes de enviar un **Pull Request (PR)** a `dev`.
+4. Solicitar revisión del código y realizar mejoras antes de fusionarlo con `dev`.
+5. Coordinar con el equipo para evitar conflictos en la integración del sistema.
 
 ---
 
